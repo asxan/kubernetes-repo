@@ -17,10 +17,11 @@ spec:
         image: jenkins/jenkins:lts
         ports:
         - containerPort: 8080
+        - containerPort: 50000
+          protocol: TCP
         volumeMounts:
-          - name: jenkins-volume
+          - name: jenkins-home
             mountPath: /var/jenkins_home
       volumes:
-      - name: jenkins-volume
-        persistentVolumeClaim:
-          claimName: jenkins-claim
+        - name: jenkins-home
+          emptyDir: {}

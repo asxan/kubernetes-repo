@@ -5,7 +5,11 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - name: ui
+      port: 8080
       targetPort: 8080
+    - name: slave
+      port: 50000
+      protocol: TCP
   selector:
     app: jenkins
