@@ -1,1 +1,1 @@
-This is simple storege which has files for deploying jenkins into kebernetes claster
+This is a simple python application for example demployment into kubernetes cluster using Jenkins Kubernetes plugin.
