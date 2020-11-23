@@ -32,7 +32,9 @@ pipeline
             {
                 sh(script: """echo "----------Build stage---------" 
                 chmod 777 build/build.sh
-                whoami
+                curl -fsSL https://get.docker.com -o get-docker.sh
+                chmod 777 get-docker.sh 
+                sh get-docker.sh 
                 """)
                 // sh ./build/build.sh
                 
