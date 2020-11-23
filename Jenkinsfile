@@ -31,12 +31,9 @@ pipeline
             steps
             {
                 sh(script: """echo "----------Build stage---------" 
-                chmod 777 build/build.sh
-                curl -fsSL https://get.docker.com -o get-docker.sh
-                chmod 777 get-docker.sh 
-                sh get-docker.sh 
-                """)
-                // sh ./build/build.sh
+                cp -r  $PWD/pythonapp/BoozeShop/Store/.  $PWD/build/
+                cd  build/ """)
+                sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
                 
             }
             post
