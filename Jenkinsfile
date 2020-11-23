@@ -34,7 +34,7 @@ pipeline
                 sh(script: """echo "----------Build stage---------" 
                 cp -r  pythonapp/BoozeShop/Store/.  $PWD/build/
                 cd  build/ 
-                dockerImage = docker.build("$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . ")
+                dockerImage = docker.build "$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . "
                 """)
                 
                 sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
