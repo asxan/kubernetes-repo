@@ -8,13 +8,13 @@ pipeline
         {
             steps
             {
-                sh(script: """mkdir pythonapp """)
+                sh(script: """echo "-------Clone project ---------" """)
                 git url:'https://github.com/asxan/kubernetes-repo.git', branch:'boozshop'
                 sh(script: """ 
+                mkdir pythonapp 
                 mv BoozeShop pythonapp/
-                ls -la
-                cd ..
-                pwd """)
+                ls -la pythonapp/BoozeShop/
+                """)
             }
         }       
     }
