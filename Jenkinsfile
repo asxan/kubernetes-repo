@@ -31,7 +31,7 @@ pipeline
             steps
             {
                 sh(script: """echo "----------Build stage---------" 
-                cp -r  $PWD/pythonapp/BoozeShop/Store/.  $PWD/build/
+                cp -r  pythonapp/BoozeShop/Store/.  $PWD/build/
                 cd  build/ """)
                 sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
                 
