@@ -32,8 +32,9 @@ pipeline
             {
                 sh(script: """echo "----------Build stage---------" 
                 chmod 777 build/build.sh
-                sh ./build/build.sh
+                whoami
                 """)
+                // sh ./build/build.sh
                 
             }
             post
