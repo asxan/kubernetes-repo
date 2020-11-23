@@ -30,7 +30,8 @@ pipeline
         {
             steps
             {
-                echo "Hello world"
+                sh(script: """echo "----------Build stage---------" && ls -la""")
+
             }
             post
             {
