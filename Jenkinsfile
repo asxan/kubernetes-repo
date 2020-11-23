@@ -33,6 +33,8 @@ pipeline
                 sh(script: """echo "----------Build stage---------" 
                 ls -la
                 pwd
+                chmod 777 build/build.sh
+                ls -la build/
                 """)
                 //sh './build/build.sh'
             }
