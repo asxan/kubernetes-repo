@@ -30,8 +30,8 @@ pipeline
         {
             steps
             {
-                sh(script: """echo "----------Build stage---------" && ls -la""")
-
+                sh(script: """echo "----------Build stage---------" """)
+                sh './build/build.sh'
             }
             post
             {
