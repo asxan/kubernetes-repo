@@ -35,7 +35,7 @@ pipeline
                 cp -r  pythonapp/BoozeShop/Store/.  $PWD/build/
                 cd  build/ 
                 """)
-                def dockerImage = docker.build "$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . "
+                docker.build "$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . "
                 
                 //sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
                 
