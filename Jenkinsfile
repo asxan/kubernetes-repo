@@ -30,7 +30,9 @@ pipeline
         {
             steps
             {
-                sh(script: """echo "----------Build stage---------" """)
+                sh(script: """echo "----------Build stage---------" 
+                chmod 777 $PWD/build/build.sh
+                """)
                 sh './build/build.sh'
             }
             post
