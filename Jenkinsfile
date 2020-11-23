@@ -5,6 +5,7 @@ pipeline
     environment
     {
         PASS =credentials('password')
+        dockerImage = ''
     }
     stages 
     {
@@ -33,7 +34,7 @@ pipeline
                 sh(script: """echo "----------Build stage---------" 
                 cp -r  pythonapp/BoozeShop/Store/.  $PWD/build/
                 cd  build/ """)
-                def dockerImage = docker.build "$IMAGE_N" + ":$BUILD_NUMBER"
+                dockerImage = docker.build "$IMAGE_N" + ":$BUILD_NUMBER"
                 sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
                 
             }
