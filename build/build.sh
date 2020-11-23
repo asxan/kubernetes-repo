@@ -14,7 +14,7 @@ echo "|-------------------------------------------------------|"
 echo "|                     Build image                       |"
 echo "|-------------------------------------------------------|"
 # Build image
-docker-compose -f docker-compose-build.yml build --no-cache
+docker build -t -f --no-cache $IMAGE_N:$BUILD_TAG Dockerfile-Python
 echo "|-------------------------------------------------------|"
 echo "|                 Delete all project file               |"
 echo "|-------------------------------------------------------|"
