@@ -40,7 +40,7 @@ pipeline
                     dockerImage = docker.build "$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . "
                 }
                 
-                sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
+                //sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
                 
             }
             post
