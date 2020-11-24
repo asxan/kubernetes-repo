@@ -42,8 +42,6 @@ pipeline
                 success
                 {
                     echo "Successfull"
-                    sh '''
-                    '''
                 }
                 failure
                 {
