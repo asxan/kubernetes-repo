@@ -42,8 +42,7 @@ pipeline
                 success
                 {
                     echo "Successfull"
-                    sh '''cd  build/
-                    ls -la
+                    sh '''
                     '''
                 }
                 failure
@@ -56,10 +55,10 @@ pipeline
         {
             steps
             {
-                sh(script: """pwd && ls -la """)
+                sh(script: """ cd build/ && ls -la """)
                 script
                 {    
-                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  pythonapp/Dockerfile-Python --no-cache .")   
+                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  Dockerfile-Python --no-cache .")   
                 }
             }
             post
