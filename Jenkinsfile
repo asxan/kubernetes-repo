@@ -27,17 +27,34 @@ pipeline
                 }
             }
         }
+        stage('Copy project')
+        {
+            steps
+            {
+                sh(script: """ echo "----------Build stage---------" 
+                cp -r  pythonapp/BoozeShop/Store/.  build/
+                """)
+            }
+            post
+            {
+                success
+                {
+                    echo "Successfull"
+                    sh '''cd  build/ '''
+                }
+                failure
+                {
+                    echo "Failure"
+                }
+            }
+        }
         stage('Build')
         {
             steps
             {
                 script
-                {
-                    echo "----------Build stage---------"
-                    sh '''cp -r  pythonapp/BoozeShop/Store/.  build/'''
-                    cd  build/  
-                    docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f --no-cache Dockerfile-Python . ")
-                    rm -rf .idea/ BoozeStore/ requirements.txt
+                {    
+                    docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f --no-cache Dockerfile-Python . ")   
                 }
             }
             post
@@ -45,6 +62,11 @@ pipeline
                 success
                 {
                     echo "Successfull"
+                    sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
+                }
+                failure
+                {
+                    echo "Failure"
                 }
             }
         }
