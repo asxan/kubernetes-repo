@@ -5,7 +5,7 @@ pipeline
     environment
     {
         PASS =credentials('password')
-        dockerImage = ''
+        dockerImage =''
     }
     stages 
     {
@@ -54,7 +54,7 @@ pipeline
             {
                 script
                 {    
-                    docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f --no-cache Dockerfile-Python . ")   
+                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f --no-cache Dockerfile-Python . ")   
                 }
             }
             post
