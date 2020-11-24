@@ -56,6 +56,7 @@ pipeline
         {
             steps
             {
+                sh(script"""pwd && ls -la """)
                 script
                 {    
                     dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  pythonapp/Dockerfile-Python --no-cache .")   
