@@ -58,7 +58,7 @@ pipeline
             {
                 script
                 {    
-                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f pythonapp/Dockerfile-Python --no-cache")   
+                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "--no-cache -f  pythonapp/Dockerfile-Python ")   
                 }
             }
             post
