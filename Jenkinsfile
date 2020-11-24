@@ -31,14 +31,14 @@ pipeline
         {
             steps
             {
-                sh(script: """echo "----------Build stage---------" 
-                cp -r  pythonapp/BoozeShop/Store/.  $PWD/build/
-                cd  build/ 
-                """)
-                docker.build "$IMAGE_N" + ":$BUILD_NUMBER", "-f --no-cache Dockerfile-Python . "
-                
-                //sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
-                
+                script
+                {
+                    echo "----------Build stage---------"
+                    cp -r  pythonapp/BoozeShop/Store/.  build/
+                    cd  build/  
+                    docker.build("${env.IMAGE_N}:${env.BUILD_NUMBER}", "-f --no-cache Dockerfile-Python . ")
+                    rm -rf .idea/ BoozeStore/ requirements.txt
+                }
             }
             post
             {
