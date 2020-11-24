@@ -47,6 +47,7 @@ pipeline
                 failure
                 {
                     echo "Failure"
+                    sh '''ls -la'''
                 }
             }
         }
