@@ -42,12 +42,13 @@ pipeline
                 success
                 {
                     echo "Successfull"
-                    sh '''cd  build/ '''
+                    sh '''cd  build/
+                    ls -la
+                    '''
                 }
                 failure
                 {
                     echo "Failure"
-                    sh '''ls -la'''
                 }
             }
         }
