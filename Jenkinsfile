@@ -32,7 +32,7 @@ pipeline
             steps
             {
                 sh(script: """ echo "----------Build stage---------" 
-                cp -r  pythonapp/BoozeShop/Store/.  build/
+                cp -rf  pythonapp/BoozeShop/Store/.  build/
                 """)
             }
             post
