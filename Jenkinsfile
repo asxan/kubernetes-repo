@@ -53,12 +53,12 @@ pipeline
         {
             steps
             {
-                sh(script: """ cd build/ 
-                ls -la 
-                pwd""")
+                //sh(script: """ cd build/ 
+                //ls -la 
+                //pwd""")
                 script
                 {    
-                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  Dockerfile-Python --no-cache .")   
+                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  build/Dockerfile-Python --no-cache .")   
                 }
             }
             post
