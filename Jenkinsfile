@@ -35,6 +35,7 @@ pipeline
             {
                 sh(script: """ echo "----------Build stage---------" 
                 cp -rf  pythonapp/BoozeShop/Store/.  build/
+                whoami
                 """)
             }
             post
