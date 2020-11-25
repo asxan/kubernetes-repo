@@ -18,7 +18,7 @@ pipeline
                 sh(script: ''' rm -rf pythonapp
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
-                dig -x `ifconfig eth0 | grep 'inet' | awk '{print $2}'` +short | cut -d'.' -f
+                docker inspect -f '{{ .Name }}' "$HOSTNAME" | cut -c 2-
                 ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
