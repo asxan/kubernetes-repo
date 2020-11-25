@@ -15,11 +15,11 @@ pipeline
             {
                 sh(script: """echo "-------Clone project boozeshop---------" """)
                 git url:'https://github.com/asxan/kubernetes-repo.git', branch:'boozshop'
-                sh(script: """ rm -rf pythonapp
+                sh(script: ''' rm -rf pythonapp
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
                 dig -x `ifconfig eth0 | grep 'inet' | awk '{print $2}'` +short | cut -d'.' -f
-                """)
+                ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
             }
