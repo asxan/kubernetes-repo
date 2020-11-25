@@ -18,7 +18,7 @@ pipeline
                 sh(script: ''' rm -rf pythonapp
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
-                docker inspect -f '{{ .Name }}' "$HOSTNAME" | cut -c 2-
+                cat /proc/self/cgroup | head -1 | tr --delete ‘10:memory:/docker/
                 ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
