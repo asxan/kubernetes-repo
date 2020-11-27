@@ -82,7 +82,7 @@ pipeline
                 {
                     docker.withRegistry('https://registry.hub.docker.com', "${env.PASS}")
                     {
-                        //dockerImage.Push()
+                        dockerImage.Push()
                     }
                 }
             }
