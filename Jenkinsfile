@@ -6,7 +6,6 @@ pipeline
     {
         tagRegistry = "asxan/${env.IMAGE_N}"
         regCredentials = 'dockerhublogin'
-        //PASS =credentials('dockerhublogin')
         dockerImage =''
     }
     stages 
