@@ -5,7 +5,7 @@ pipeline
     environment
     {
         tagRegistry = "asxan/${env.IMAGE_N}"
-        regCredentials = 'dockerhublogin'
+        //regCredentials = 'dockerhublogin'
         dockerImage =''
     }
     stages 
@@ -79,7 +79,7 @@ pipeline
             {
                 script
                 {
-                    docker.withRegistry('', regCredentials)
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhublogin')
                     {
                         dockerImage.Push()
                     }
