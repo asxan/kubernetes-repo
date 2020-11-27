@@ -80,7 +80,7 @@ pipeline
             {
                 script
                 {
-                    docker.withRegistry('https://hub.docker.com/', "regCredentials")
+                    docker.withRegistry('https://hub.docker.com/', "${env.regCredentials}")
                     {
                         dockerImage.Push()
                     }
