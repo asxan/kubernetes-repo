@@ -81,7 +81,9 @@ pipeline
                 {
                     docker.withRegistry('', "${env.regCredentials}")
                     {
-                        dockerImage.Push()
+                        //dockerImage.Push()
+                        dockerImage.push("latest")
+                        dockerImage.push("${env.BUILD_ID}")
                     }
                 }
             }
