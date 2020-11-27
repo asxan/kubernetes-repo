@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: myweb_boozeshop
+  name: myweb_boozeshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myweb_boozeshop
+  template:
+    metadata:
+      labels:
+        app: myweb_boozeshop
+    spec:
+      containers:
+        - name: myweb_boozeshop
+          image: asxan/boozeshop:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000  # 30088
+
+
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  labels:
+    app: myweb_boozeshop
+  name: myweb_boozeshop
+spec:
+  ports:
+  - nodePort: 30088
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: myweb_boozeshop
+  type: NodePort
+
+      
