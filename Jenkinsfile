@@ -4,7 +4,8 @@ pipeline
 
     environment
     {
-        PASS =credentials('password')
+        tagRegistry = "asxan/${env.IMAGE_N}"
+        regCredentials =credentials('dockerhublogin')
         dockerImage =''
     }
     stages 
@@ -54,12 +55,9 @@ pipeline
         {
             steps
             {
-                //sh(script: """ cd build/ 
-                //ls -la 
-                //pwd""")
                 script
                 {    
-                    dockerImage = docker.build("${env.IMAGE_N}:${env.BUILD_TAG}", "-f  build/Dockerfile-Python --no-cache .")   
+                    dockerImage = docker.build(tagRegistry + ":${env.BUILD_TAG}", "-f  build/Dockerfile-Python --no-cache .")   
                 }
             }
             post
@@ -75,6 +73,26 @@ pipeline
                 }
             }
         }
-
+        stage('Push')
+        {
+            steps
+            {
+                script
+                {
+                    docker.withRegistry('', regCredentials)
+                    {
+                        dockerImage.Push()
+                    }
+                }
+            }
+        }
+        stage('Delete image')
+        {
+            // Remove unused docker image
+            steps
+            {
+                sh "docker rmi $tagRegistry:$BUILD_TAG"
+            }
+        }
     }
 }
