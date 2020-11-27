@@ -57,7 +57,7 @@ pipeline
             {
                 script
                 {    
-                    dockerImage = docker.build(tagRegistry + ":${env.BUILD_TAG}", "-f  build/Dockerfile-Python --no-cache .")   
+                    dockerImage = docker.build(tagRegistry + ":${env.BUILD_ID}", "-f  build/Dockerfile-Python --no-cache .")   
                 }
             }
             post
