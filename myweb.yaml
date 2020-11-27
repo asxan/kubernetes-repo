@@ -24,12 +24,13 @@ spec:
 
 ---
 apiVersion: v1
-kind: Deployment
+kind: Service
 metadata:
   labels:
     app: myweb_boozeshop
   name: myweb_boozeshop
 spec:
+  type: NodePort
   ports:
   - nodePort: 30088
     port: 8000
@@ -37,6 +38,6 @@ spec:
     targetPort: 8000
   selector:
     app: myweb_boozeshop
-  type: NodePort
+
 
       
