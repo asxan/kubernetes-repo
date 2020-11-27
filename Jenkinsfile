@@ -93,7 +93,7 @@ pipeline
             // Remove unused docker image
             steps
             {
-                sh "docker rmi $tagRegistry:$BUILD_TAG"
+                sh "docker rmi $tagRegistry:$BUILD_ID"
             }
         }
     }
