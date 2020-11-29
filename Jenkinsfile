@@ -1,5 +1,14 @@
 pipeline 
 {
+    parameters 
+    {
+        choice
+        (
+            name: 'ENV',
+            choices: ['dev', 'prod'],
+            description: 'Choice environment variable ENV'
+        )
+    }
     agent {label 'master'}
 
     environment
