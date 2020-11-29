@@ -20,9 +20,14 @@ metadata:
         job: build-service
     name: build-service
 spec:
+  securityContext:
+    runAsUser: 1000 
   containers:
   - name: jenkins-pode
     image: asxan/jenkins_custom:latest
+    ports:
+      - containerPort: 8080
+      - containerPort: 50000
     imagePullPolicy: Always
     command: ["cat"]
     tty: true
