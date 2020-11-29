@@ -12,7 +12,6 @@ pipeline
     {
         kubernetes
         {
-            label 'build-service-pode'
             yaml """
 apiVersion: v1
 kind: Pod
