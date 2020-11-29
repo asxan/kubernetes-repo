@@ -21,24 +21,24 @@ metadata:
         job: build-service
     name: build-service
 spec:
-    containers:
-    - name: jenkins-pode
-      image: asxan/jenkins_custom:latest
-      imagePullPolicy: Always
-      command: ["${computer.jnlpmac} ${computer.name}"]
-      tty: true
-      volumeMounts:
-      - name: jenkins-home
-        mountPath: /var/jenkins_home
-      - name: docker-socket
-        mountPath: /var/run/docker.sock 
-    volumes:
+  containers:
+  - name: jenkins-pode
+    image: asxan/jenkins_custom:latest
+    imagePullPolicy: Always
+    command: ["cat"]
+    tty: true
+    volumeMounts:
     - name: jenkins-home
-      emptyDir: {}
+      mountPath: /var/jenkins_home
     - name: docker-socket
-      hostPath:
-        path: /var/run/docker.sock
-        type: Socket
+      mountPath: /var/run/docker.sock 
+volumes:
+- name: jenkins-home
+  emptyDir: {}
+- name: docker-socket
+  hostPath:
+    path: /var/run/docker.sock
+    type: Socket
 """
         }
     }
