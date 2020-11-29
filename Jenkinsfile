@@ -8,44 +8,43 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent 
-    {
-        kubernetes
-        {
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-    labels:
-        job: build-service
-    name: build-service
-spec:
-  securityContext:
-    runAsUser: 1000 
-  containers:
-  - name: jenkins-pode
-    image: asxan/jenkins_custom:latest
-    ports:
-      - containerPort: 8080
-      - containerPort: 50000
-    imagePullPolicy: Always
-    command: ["cat"]
-    tty: true
-    volumeMounts:
-    - name: jenkins-home
-      mountPath: /var/jenkins_home
-    - name: docker-socket
-      mountPath: /var/run/docker.sock 
-volumes:
-- name: jenkins-home
-  emptyDir: {}
-- name: docker-socket
-  hostPath:
-    path: /var/run/docker.sock
-    type: Socket
-"""
-        }
-    }
+    agent { label 'master'}
+//         kubernetes
+//         {
+//             yaml """
+// apiVersion: v1
+// kind: Pod
+// metadata:
+//     labels:
+//         job: build-service
+//     name: build-service
+// spec:
+//   securityContext:
+//     runAsUser: 1000 
+//   containers:
+//   - name: jenkins-pode
+//     image: asxan/jenkins_custom:latest
+//     ports:
+//       - containerPort: 8080
+//       - containerPort: 50000
+//     imagePullPolicy: Always
+//     command: ["cat"]
+//     tty: true
+//     volumeMounts:
+//     - name: jenkins-home
+//       mountPath: /var/jenkins_home
+//     - name: docker-socket
+//       mountPath: /var/run/docker.sock 
+// volumes:
+// - name: jenkins-home
+//   emptyDir: {}
+// - name: docker-socket
+//   hostPath:
+//     path: /var/run/docker.sock
+//     type: Socket
+// """
+//         }
+//     }
 
     environment
     {
@@ -139,6 +138,16 @@ volumes:
             steps
             {
                 sh "docker rmi $tagRegistry:$BUILD_ID"
+            }
+        }
+        stage('Deploy to cluster')
+        {
+            steps
+            {
+                script
+                {
+                    echo "---------------Deploy------------------"
+                }
             }
         }
     }
