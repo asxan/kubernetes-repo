@@ -28,10 +28,14 @@ spec:
       command: ["${computer.jnlpmac} ${computer.name}"]
       tty: true
       volumeMounts:
-      - name: docker-sock
-        mountPath: /var/run/docker.sock
+      - name: jenkins-home
+        mountPath: /var/jenkins_home
+      - name: docker-socket
+        mountPath: /var/run/docker.sock 
     volumes:
-    - name: docker-sock
+    - name: jenkins-home
+      emptyDir: {}
+    - name: docker-socket
       hostPath:
         path: /var/run/docker.sock
         type: Socket
