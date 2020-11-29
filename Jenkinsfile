@@ -9,7 +9,36 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent {label 'master'}
+    agent 
+    {
+        kubernetes
+        {
+            label 'build-service-pode'
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+    labels:
+        job: build-service
+    name: build-service
+spec:
+    containers:
+    - name: jenkins-pode
+      image: asxan/jenkins_custom:latest
+      imagePullPolicy: Always
+      command: ["${computer.jnlpmac} ${computer.name}"]
+      tty: true
+      volumeMounts:
+      - name: docker-sock
+        mountPath: /var/run/docker.sock
+    volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+        type: Socket
+"""
+        }
+    }
 
     environment
     {
