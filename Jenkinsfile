@@ -8,37 +8,35 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent //{label 'master'}
-    {  
-        kubernetes{ 
-            defaultContainer 'build-service'
-            yaml '''
-apiVersion: v1
+    agent 
+    {
+        kubernetes 
+        {
+      //cloud 'kubernetes'
+      defaultContainer 'kaniko'
+      yaml """
 kind: Pod
-metadata:
-    labels:
-        job: build-service
-    name: build-service
 spec:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000 
   containers:
-  - name: jenkins-pode
-    image: jenkins/inbound-agent:4.3-4-alpine
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
     imagePullPolicy: Always
-    command: ["/bin/sh"]
-    args: ['${computer.jnlpmac}', '\${computer.name}']
+    command:
+    - /busybox/cat
     tty: true
     volumeMounts:
-    - name: docker-sock
-      mountPath: /var/run/docker.sock
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
   volumes:
-  - name: docker-sock
-    hostPath:
-      path: /var/run/docker.sock     
-'''
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: regcred
+          items:
+            - key: .dockerconfigjson
+              path: config.json
+"""
         }
     }
 
