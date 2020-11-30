@@ -26,7 +26,8 @@ spec:
   - name: jenkins-pode
     image: docker:19.03.13
     imagePullPolicy: Always
-    command: ["${computer.jnlpmac} ${computer.name}"]
+    command: ["/bin/bash"]
+    args: ["${computer.jnlpmac} ${computer.name}"]
     tty: true
     volumeMounts:
     - name: docker-sock
