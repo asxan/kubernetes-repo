@@ -30,7 +30,7 @@ spec:
       - containerPort: 30088
       - containerPort: 50000
     imagePullPolicy: Always
-    command: ["${computer.jnlpmac} ${computer.name}"]
+    command: ["cat"]
     tty: true
     env:
     - name: JENKINS_URL
