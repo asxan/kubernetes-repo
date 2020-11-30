@@ -8,7 +8,7 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent {labels '!master'}
+    agent {label '!master'}
 //     {  
 //         kubernetes
 //         { 
