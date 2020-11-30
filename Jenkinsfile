@@ -9,7 +9,37 @@ pipeline
         )
     }
     agent 
-    { label "!master"}
+    {  
+        kubernetes
+        { 
+            yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+    labels:
+        job: build-service
+    name: build-service
+spec:
+  securityContext:
+    runAsUser: 1000 
+  containers:
+  - name: jenkins-pode
+    image: jenkins/jnlp-slave:latest
+    imagePullPolicy: Always
+    command: ["/bin/sh"]
+    args: "${computer.jnlpmac} ${computer.name}"
+    tty: true
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock     
+'''
+        }
+    }
+
 
     environment
     {
