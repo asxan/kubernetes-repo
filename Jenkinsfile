@@ -118,7 +118,7 @@ pipeline
                 script
                 {
                     echo "---------------Deploy------------------"
-                    kubernetesDeploy(configs: "myweb.yaml",  textCredentials: [certificateAuthorityData: 'sertificateautho', clientCertificateData: 'clientsertificate', clientKeyData: 'Clientsertificate', serverUrl: 'https://192.168.99.110:8443'])
+                    kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
                 }
             }
         }
