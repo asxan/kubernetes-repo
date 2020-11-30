@@ -17,6 +17,10 @@ pipeline
       yaml '''
 kind: Pod
 spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
