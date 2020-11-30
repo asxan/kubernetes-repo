@@ -14,15 +14,15 @@ pipeline
         {
       //cloud 'kubernetes'
       defaultContainer 'kaniko'
-      yaml """
+      yaml '''
 kind: Pod
 spec:
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
     imagePullPolicy: Always
-    command:
-    - /busybox/cat
+    command: ["/bin/sh"]
+    args: ['${computer.jnlpmac}', '\${computer.name}']
     tty: true
     volumeMounts:
       - name: jenkins-docker-cfg
@@ -30,7 +30,7 @@ spec:
   volumes:
   - name: jenkins-docker-cfg
     emptyDir: {}
-"""
+'''
         }
     }
 
