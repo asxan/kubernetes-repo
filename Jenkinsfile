@@ -21,12 +21,15 @@ metadata:
     name: build-service
 spec:
   securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
     fsGroup: 1000 
   containers:
   - name: jenkins-pode
     image: docker:18.09.2
     imagePullPolicy: Always
-    command: ["cat"]
+    command: ["/bin/sh"]
+    args: ["${computer.jnlpmac} ${computer.name}"]
     tty: true
     volumeMounts:
     - name: docker-sock
