@@ -8,40 +8,39 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent {label 'master'}
-//     {  
-//         kubernetes
-//         { 
-//             yaml '''
-// apiVersion: v1
-// kind: Pod
-// metadata:
-//     labels:
-//         job: build-service
-//     name: build-service
-// spec:
-//   securityContext:
-//     runAsUser: 1000
-//     runAsGroup: 1000
-//     fsGroup: 1000 
-//   containers:
-//   - name: jenkins-pode
-//     image: docker:18.09.2  //  jenkins/jnlp-slave:latest
-//     imagePullPolicy: Always
-//     command: ["/bin/sh"]
-//     args: ["${computer.jnlpmac} ${computer.name}"]
-//     tty: true
-//     volumeMounts:
-//     - name: docker-sock
-//       mountPath: /var/run/docker.sock
-//   volumes:
-//   - name: docker-sock
-//     hostPath:
-//       path: /var/run/docker.sock     
-// '''
-//         }
-//     }
-
+    agent //{label 'master'}
+    {  
+        kubernetes
+        { 
+            yaml '''
+apiVersion: v1
+kind: Pod
+metadata:
+    labels:
+        job: build-service
+    name: build-service
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000 
+  containers:
+  - name: jenkins-pode
+    image: jenkins/inbound-agent:4.3-4-alpine
+    imagePullPolicy: Always
+    command: ["/bin/sh"]
+    args: ['${computer.jnlpmac}', '\${computer.name}']
+    tty: true
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock     
+'''
+        }
+    }
 
     environment
     {
