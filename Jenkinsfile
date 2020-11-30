@@ -9,9 +9,9 @@ pipeline
         )
     }
     agent 
-    {
+    {  //    workingDir: /home/jenkins/  ports:- containerPort: 30088- containerPort: 50000
         kubernetes
-        {
+        { //     env: - name: JENKINS_URL value: "http://172.17.0.3:8080"
             yaml """
 apiVersion: v1
 kind: Pod
@@ -24,17 +24,17 @@ spec:
     runAsUser: 1000 
   containers:
   - name: jenkins-pode
-    image: jenkins/jnlp-slave:latest
-    workingDir: /home/jenkins/
-    ports:
-      - containerPort: 30088
-      - containerPort: 50000
+    image: docker:19.03.13
     imagePullPolicy: Always
     command: ["cat"]
     tty: true
-    env:
-    - name: JENKINS_URL
-      value: "http://172.17.0.3:8080"
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock     
 """
         }
     }
