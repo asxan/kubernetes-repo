@@ -24,7 +24,7 @@ spec:
     runAsUser: 1000 
   containers:
   - name: jenkins-pode
-    image: jenkins/jnlp-slave:latest
+    image: docker:18.09.2
     imagePullPolicy: Always
     command: ["/bin/sh"]
     args: ["${computer.jnlpmac} ${computer.name}"]
