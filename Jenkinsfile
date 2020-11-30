@@ -10,8 +10,8 @@ pipeline
     }
     agent //{label 'master'}
     {  
-        kubernetes
-        { 
+        kubernetes{ 
+            defaultContainer 'build-service'
             yaml '''
 apiVersion: v1
 kind: Pod
