@@ -8,7 +8,7 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent {label '!master'}
+    agent {label 'master'}
 //     {  
 //         kubernetes
 //         { 
@@ -26,7 +26,7 @@ pipeline
 //     fsGroup: 1000 
 //   containers:
 //   - name: jenkins-pode
-//     image: docker:18.09.2
+//     image: docker:18.09.2  //  jenkins/jnlp-slave:latest
 //     imagePullPolicy: Always
 //     command: ["/bin/sh"]
 //     args: ["${computer.jnlpmac} ${computer.name}"]
