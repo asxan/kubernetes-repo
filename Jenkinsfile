@@ -104,6 +104,13 @@ pipeline
                 sh "docker rmi $tagRegistry:$BUILD_ID"
             }
         }
+        stage('Clone manifest')
+        {
+            steps
+            {
+                git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'app_manifest'
+            }
+        }
         stage('Deploy to cluster')
         {
             steps
@@ -111,6 +118,7 @@ pipeline
                 script
                 {
                     echo "---------------Deploy------------------"
+                    kubernetesDeploy(configs: "myweb.yaml",  textCredentials: [certificateAuthorityData: 'sertificateautho', clientCertificateData: 'clientsertificate', clientKeyData: 'Clientsertificate', serverUrl: 'https://192.168.99.110:8443'])
                 }
             }
         }
