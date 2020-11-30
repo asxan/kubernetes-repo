@@ -8,39 +8,39 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent 
-    {  
-        kubernetes
-        { 
-            yaml '''
-apiVersion: v1
-kind: Pod
-metadata:
-    labels:
-        job: build-service
-    name: build-service
-spec:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000 
-  containers:
-  - name: jenkins-pode
-    image: docker:18.09.2
-    imagePullPolicy: Always
-    command: ["/bin/sh"]
-    args: ["${computer.jnlpmac} ${computer.name}"]
-    tty: true
-    volumeMounts:
-    - name: docker-sock
-      mountPath: /var/run/docker.sock
-  volumes:
-  - name: docker-sock
-    hostPath:
-      path: /var/run/docker.sock     
-'''
-        }
-    }
+    agent {labels '!master'}
+//     {  
+//         kubernetes
+//         { 
+//             yaml '''
+// apiVersion: v1
+// kind: Pod
+// metadata:
+//     labels:
+//         job: build-service
+//     name: build-service
+// spec:
+//   securityContext:
+//     runAsUser: 1000
+//     runAsGroup: 1000
+//     fsGroup: 1000 
+//   containers:
+//   - name: jenkins-pode
+//     image: docker:18.09.2
+//     imagePullPolicy: Always
+//     command: ["/bin/sh"]
+//     args: ["${computer.jnlpmac} ${computer.name}"]
+//     tty: true
+//     volumeMounts:
+//     - name: docker-sock
+//       mountPath: /var/run/docker.sock
+//   volumes:
+//   - name: docker-sock
+//     hostPath:
+//       path: /var/run/docker.sock     
+// '''
+//         }
+//     }
 
 
     environment
