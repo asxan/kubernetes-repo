@@ -21,7 +21,7 @@ metadata:
     name: build-service
 spec:
   securityContext:
-    runAsUser: 1000 
+    fsGroup: 1000 
   containers:
   - name: jenkins-pode
     image: docker:18.09.2
