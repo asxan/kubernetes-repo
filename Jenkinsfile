@@ -27,7 +27,7 @@ spec:
     image: jenkins/jnlp-slave:latest
     imagePullPolicy: Always
     command: ["/bin/sh"]
-    args: "${computer.jnlpmac} ${computer.name}"
+    args: ["${computer.jnlpmac} ${computer.name}"]
     tty: true
     volumeMounts:
     - name: docker-sock
