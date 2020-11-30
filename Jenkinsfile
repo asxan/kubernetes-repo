@@ -8,35 +8,7 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent 
-    {
-        kubernetes 
-        {
-      //cloud 'kubernetes'
-      defaultContainer 'kaniko'
-      yaml '''
-kind: Pod
-spec:
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    fsGroup: 1000
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug-539ddefcae3fd6b411a95982a830d987f4214251
-    imagePullPolicy: Always
-    command: ["/bin/bash"]
-    args: ['${computer.jnlpmac}', '\${computer.name}']
-    tty: true
-    volumeMounts:
-      - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
-  volumes:
-  - name: jenkins-docker-cfg
-    emptyDir: {}
-'''
-        }
-    }
+    agent {label 'master'}
 
     environment
     {
