@@ -12,7 +12,7 @@ pipeline
     {  //    workingDir: /home/jenkins/  ports:- containerPort: 30088- containerPort: 50000
         kubernetes
         { //     env: - name: JENKINS_URL value: "http://172.17.0.3:8080"
-            yaml """
+            yaml '''
 apiVersion: v1
 kind: Pod
 metadata:
@@ -35,7 +35,7 @@ spec:
   - name: docker-sock
     hostPath:
       path: /var/run/docker.sock     
-"""
+'''
         }
     }
 
