@@ -24,13 +24,17 @@ spec:
     runAsUser: 1000 
   containers:
   - name: jenkins-pode
-    image: asxan/jenkins_custom:latest
+    image: jenkins/jnlp-slave:latest
+    workingDir: /home/jenkins/
     ports:
-      - containerPort: 8080
+      - containerPort: 30088
       - containerPort: 50000
     imagePullPolicy: Always
-    command: ["cat"]
+    command: ["${computer.jnlpmac} ${computer.name}"]
     tty: true
+    env:
+    - name: JENKINS_URL
+      value: "http://172.17.0.3:8080"
 """
         }
     }
