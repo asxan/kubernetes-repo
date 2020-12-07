@@ -8,13 +8,22 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-    agent {label 'master'}
 
     environment
     {
         tagRegistry = "asxan/${env.IMAGE_N}"
         regCredentials = 'dockerhublogin'
         dockerImage =''
+    }
+
+    options
+    {
+        timeout(time: "${BUILD_TIMEOUT}", unit: 'MINUTES')
+    }
+
+    agent
+    {
+        label 'master'
     }
     stages 
     {
@@ -120,6 +129,7 @@ pipeline
                     echo "---------------Deploy------------------"
                     kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
                 }
+                if (env.)
             }
         }
     }
