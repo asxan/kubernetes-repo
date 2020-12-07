@@ -127,9 +127,16 @@ pipeline
                 script
                 {
                     echo "---------------Deploy------------------"
-                    kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
+                    //kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
                 }
-                if (env.)
+                if (params.ENVIRONMENT == 'dev')
+                {
+                    echo "Dev env"
+                }
+                else if (params.ENVIRONMENT == 'prod')
+                {
+                    echo "Prod env"
+                }
             }
         }
     }
