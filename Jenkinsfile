@@ -23,24 +23,23 @@ pipeline
 
     agent 
     {
-        kubernetes 
-        {
-            label podlabel //debug
+        kubernetes{
+            label 'kaniko-pod' //debug
             yaml """
             apiVersion: v1
             kind: Pod
             metadata:
-            name: jenkins-agent
+                name: jenkins-agent
             spec:
-            containers:
-            - name: kaniko
-                image: gcr.io/kaniko-project/executor:latest
-                imagePullPolicy: Always
-                workDir:/home/jenkins
-                command:
-                - /busybox/pwd
-                tty: true
-                restartPolicy: Never
+                containers:
+                - name: kaniko
+                  image: gcr.io/kaniko-project/executor:latest
+                  imagePullPolicy: Always
+                  workDir:/home/jenkins
+                  command:
+                  - /busybox/pwd
+                  tty: true
+                  restartPolicy: Never
                 resources:
                     requests:
                         memory: "256Mi"
