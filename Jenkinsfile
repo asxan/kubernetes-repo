@@ -21,10 +21,33 @@ pipeline
         timeout(time: "${BUILD_TIMEOUT}", unit: 'MINUTES')
     }
 
-    agent
-    {
-        label 'master'
-    }
+    agent {
+    kubernetes {
+        label podlabel //debug
+        yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins-agent
+spec:
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    imagePullPolicy: Always
+    workDir:/home/jenkins
+    command:
+    - /busybox/pwd
+    tty: true
+    restartPolicy: Never
+    resources:
+        requests:
+            memory: "256Mi"
+            cpu: "100m"
+        limits:
+            memory: "256Mi"
+            cpu: "100m"
+"""
+   }
     stages 
     {
         stage('Clone project')
@@ -98,7 +121,6 @@ pipeline
                 {
                     docker.withRegistry('', "${env.regCredentials}")
                     {
-                        //dockerImage.Push()
                         dockerImage.push("latest")
                         dockerImage.push("${env.BUILD_ID}")
                     }
