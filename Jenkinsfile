@@ -11,7 +11,7 @@ pipeline
 
     environment
     {
-        tagRegistry = "asxan/${env.IMAGE_N}-new"
+        tagRegistry = "asxan/${env.IMAGE_N}"
         regCredentials = 'dockerhublogin'
         dockerImage =''
     }
