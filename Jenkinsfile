@@ -32,7 +32,7 @@ pipeline
             steps
             {
                 echo "------------------------Clone master--------------------------"
-                git credentialsId: 'github-jenkinskey', branch:'master', url:'https://github.com/asxan/kubernetes-repo.git'
+                git credentialsId: 'github-jenkinskey', branch:'master', url:'git@github.com:asxan/kubernetes-repo.git'
                 sh(script: ''' ls -la
                 rm -rf pythonapp
                 mkdir pythonapp 
