@@ -24,38 +24,7 @@ pipeline
 
     agent 
     {
-        kubernetes
-        {
-        yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-    name: jenkins-agent
-spec:
-    containers:
-    - name: docker
-      image: docker:18.09.2
-      imagePullPolicy: Always
-      workingDir: /home/jenkins
-      
-      tty: true
-      volumeMounts:
-      - name: docker-sock
-        mountPath: /var/run/docker.sock
-      restartPolicy: Never
-      resources:
-        requests:
-            memory: "256Mi"
-            cpu: "100m"
-        limits:
-            memory: "256Mi"
-            cpu: "100m"
-    volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-"""
-        }
+        agent any
     }
 
     stages 
