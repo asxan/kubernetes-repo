@@ -39,6 +39,9 @@ pipeline
                 ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
+                echo "------------------------Clone manifest--------------------------"
+                git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'app_manifest'
+
             }
             post
             {
@@ -111,13 +114,6 @@ pipeline
             steps
             {
                 sh "docker rmi $tagRegistry:$BUILD_ID"
-            }
-        }
-        stage('Clone manifest')
-        {
-            steps
-            {
-                git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'app_manifest'
             }
         }
         stage('Deploy to cluster')
