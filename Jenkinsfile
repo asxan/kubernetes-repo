@@ -21,13 +21,12 @@ pipeline
         timeout(time: "${BUILD_TIMEOUT}", unit: 'MINUTES')
     }
 
-    agent 
-    {
+    agent
+    { 
         node
         {
-            kubernetes
-            {
-                yaml """
+            
+            yaml """
                 apiVersion: v1
                 kind: Pod
                 metadata:
@@ -49,8 +48,7 @@ pipeline
                             limits:
                                 memory: "256Mi"
                                 cpu: "100m"
-                """
-            }
+            """
         }
     }
 
