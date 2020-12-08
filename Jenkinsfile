@@ -25,8 +25,6 @@ pipeline
     { 
         node
         {
-            
-            yaml """
                 apiVersion: v1
                 kind: Pod
                 metadata:
@@ -48,7 +46,6 @@ pipeline
                             limits:
                                 memory: "256Mi"
                                 cpu: "100m"
-            """
         }
     }
 
