@@ -1,1 +1,1 @@
-This is simple storege which has files for deploying jenkins into kebernetes claster
+This is build scripts for build docker image, push into DockerHub and then deploy to kubernetes cluster
