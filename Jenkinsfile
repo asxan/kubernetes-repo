@@ -36,6 +36,7 @@ pipeline
                 sh(script: ''' rm -rf pythonapp
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
+                lsb_release -a
                 ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
