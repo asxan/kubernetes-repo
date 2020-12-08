@@ -31,6 +31,8 @@ pipeline
         {
             steps
             {
+                echo "------------------------Clone manifest--------------------------"
+                git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'app_manifest'
                 sh(script: """echo "-------Clone project boozeshop---------" """)
                 git url:'https://github.com/asxan/kubernetes-repo.git', branch:'boozshop'
                 sh(script: ''' rm -rf pythonapp
@@ -39,9 +41,6 @@ pipeline
                 ''')
                 echo "---------------------Clone build scripts------------------------"
                 git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
-                echo "------------------------Clone manifest--------------------------"
-                git url: 'https://github.com/asxan/kubernetes-repo.git', branch:'app_manifest'
-
             }
             post
             {
