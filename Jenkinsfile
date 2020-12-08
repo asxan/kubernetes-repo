@@ -24,30 +24,30 @@ pipeline
     agent 
     {
         podTemplate(yaml: """
-            apiVersion: v1
-            kind: Pod
-            metadata:
-                name: jenkins-agent
-            spec:
-                containers:
-                - name: kaniko
-                  image: gcr.io/kaniko-project/executor:latest
-                  imagePullPolicy: Always
-                  workDir:/home/jenkins
-                  command:
-                  - /busybox/pwd
-                  tty: true
-                  restartPolicy: Never
-                resources:
-                    requests:
-                        memory: "256Mi"
-                        cpu: "100m"
-                    limits:
-                        memory: "256Mi"
-                        cpu: "100m"
+        apiVersion: v1
+        kind: Pod
+        metadata:
+            name: jenkins-agent
+        spec:
+            containers:
+            - name: kaniko
+              image: gcr.io/kaniko-project/executor:latest
+              imagePullPolicy: Always
+              workDir:/home/jenkins
+              command:
+              - /busybox/pwd
+              tty: true
+              restartPolicy: Never
+              resources:
+                requests:
+                    memory: "256Mi"
+                    cpu: "100m"
+                limits:
+                    memory: "256Mi"
+                    cpu: "100m"
             """)
-        }
     }
+    
     stages 
     {
         stage('Clone project')
