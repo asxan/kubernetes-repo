@@ -38,7 +38,7 @@ spec:
       imagePullPolicy: Always
       workingDir: /home/jenkins
       command:
-      - /busybox/pwd
+      - /busybox/cat
       tty: true
       restartPolicy: Never
       resources:
