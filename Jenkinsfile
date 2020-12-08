@@ -25,7 +25,6 @@ pipeline
     {
         kubernetes
         {
-            label 'kaniko-pod' //debug
             yaml """
             apiVersion: v1
             kind: Pod
