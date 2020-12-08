@@ -23,9 +23,7 @@ pipeline
 
     agent 
     {
-        kubernetes{
-            label 'kaniko-pod' //debug
-            yaml """
+        podTemplate(yaml: """
             apiVersion: v1
             kind: Pod
             metadata:
@@ -47,7 +45,7 @@ pipeline
                     limits:
                         memory: "256Mi"
                         cpu: "100m"
-            """
+            """)
         }
     }
     stages 
