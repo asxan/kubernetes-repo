@@ -25,11 +25,11 @@ pipeline
     {
         kubernetes
         {
-yaml """
+        yaml """
 apiVersion: v1
 kind: Pod
 metadata:
-name: jenkins-agent
+    name: jenkins-agent
 spec:
     containers:
     - name: docker
