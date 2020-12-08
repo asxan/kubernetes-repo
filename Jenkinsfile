@@ -31,17 +31,16 @@ pipeline
         {
             steps
             {
-                echo "------------------------Clone manifest--------------------------"
-                git credentialsId: 'github-jenkinskey', branch:'app_manifest', url:'https://github.com/asxan/kubernetes-repo.git'
-                sh(script: """echo "-------Clone project boozeshop---------" """)
-                git credentialsId: 'github-jenkinskey', url:'https://github.com/asxan/kubernetes-repo.git', branch:'boozshop'
-                sh(script: ''' rm -rf pythonapp
+                echo "------------------------Clone master--------------------------"
+                git credentialsId: 'github-jenkinskey', branch:'master', url:'https://github.com/asxan/kubernetes-repo.git'
+                sh(script: ''' ls -la
+                rm -rf pythonapp
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
                 ''')
-                echo "---------------------Clone build scripts------------------------"
-                git credentialsId: 'github-jenkinskey', url: 'https://github.com/asxan/kubernetes-repo.git', branch:'build_scripts'
+
             }
+
             post
             {
                 success
@@ -74,18 +73,25 @@ pipeline
         {
             steps
             {
-                script
-                {    
-                    sh '''ls -lsa '''
-                    dockerImage = docker.build(tagRegistry + ":${env.BUILD_ID}", "-f  build/Dockerfile-Python --no-cache .")   
+                dir('build')
+                {
+                    script
+                    {    
+                        sh '''ls -lsa '''
+                        dockerImage = docker.build(tagRegistry + ":${env.BUILD_ID}", "-f  Dockerfile-Python --no-cache .")   
+                    }
                 }
+                
             }
             post
             {
                 success
                 {
-                    echo "Successfull"
-                    sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
+                    dir('build')
+                    {
+                        echo "Successfull"
+                        sh(script: """rm -rf .idea/ BoozeStore/ requirements.txt""")
+                    }
                 }
                 failure
                 {
