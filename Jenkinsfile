@@ -32,13 +32,15 @@ metadata:
 name: jenkins-agent
 spec:
     containers:
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:debug
+    - name: docker
+      image: docker:18.09.2
       imagePullPolicy: Always
       workingDir: /home/jenkins
-      command:
-      - /busybox/cat
+      command: ["cat"]
       tty: true
+      volumeMounts:
+      - name: docker-sock
+        mountPath: /var/run/docker.sock
       restartPolicy: Never
       resources:
         requests:
@@ -47,6 +49,10 @@ spec:
         limits:
             memory: "256Mi"
             cpu: "100m"
+    volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
 """
         }
     }
