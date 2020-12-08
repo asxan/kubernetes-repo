@@ -36,7 +36,7 @@ spec:
       image: docker:18.09.2
       imagePullPolicy: Always
       workingDir: /home/jenkins
-      command: ["cat"]
+      command: ["${computer.jnlpmac} ${computer.name}"]
       tty: true
       volumeMounts:
       - name: docker-sock
