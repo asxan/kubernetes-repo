@@ -8,7 +8,8 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-
+//command: ["/bin/ls"]
+//     args: ["${computer.jnlpmac} ${computer.name}"]
     environment
     {
         tagRegistry = "asxan/${env.IMAGE_N}"
@@ -36,7 +37,7 @@ spec:
       image: docker:18.09.2
       imagePullPolicy: Always
       workingDir: /home/jenkins
-      args: ["${computer.jnlpmac} ${computer.name}"]
+      
       tty: true
       volumeMounts:
       - name: docker-sock
