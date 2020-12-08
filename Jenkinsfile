@@ -1,5 +1,5 @@
 pipeline 
-{  // hello
+{  
     parameters 
     {
         choice(
@@ -8,8 +8,6 @@ pipeline
             description: 'Choice environment variable ENV'
         )
     }
-//command: ["/bin/ls"]
-//     args: ["${computer.jnlpmac} ${computer.name}"]
     environment
     {
         tagRegistry = "asxan/${env.IMAGE_N}"
@@ -76,6 +74,7 @@ pipeline
             {
                 script
                 {    
+                    sh '''ls -lsa '''
                     dockerImage = docker.build(tagRegistry + ":${env.BUILD_ID}", "-f  build/Dockerfile-Python --no-cache .")   
                 }
             }
