@@ -25,7 +25,6 @@ pipeline
     {
         kubernetes
         {
-            label 'kaniko-pod' //debug
 yaml """
 apiVersion: v1
 kind: Pod
@@ -34,7 +33,7 @@ name: jenkins-agent
 spec:
     containers:
     - name: kaniko
-      image: gcr.io/kaniko-project/executor:latest
+      image: gcr.io/kaniko-project/executor:debug
       imagePullPolicy: Always
       workingDir: /home/jenkins
       command:
