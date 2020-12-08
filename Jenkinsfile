@@ -36,7 +36,7 @@ pipeline
                 - name: kaniko
                   image: gcr.io/kaniko-project/executor:latest
                   imagePullPolicy: Always
-                  workDir:/home/jenkins
+                  workingDir: /home/jenkins
                   command:
                   - /busybox/pwd
                   tty: true
@@ -51,7 +51,7 @@ pipeline
              """
         }
     }
-    
+
     stages 
     {
         stage('Clone project')
