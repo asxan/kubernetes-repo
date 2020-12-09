@@ -3,3 +3,4 @@ deployment:
   tag: "latest"
 name: myweb-boozeshop
 replicas: 1
+namespace: default
