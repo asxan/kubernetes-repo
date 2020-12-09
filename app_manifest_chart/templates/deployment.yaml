@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: "{{ .Values.name }}"
-  replicas: "{{ .Values.replicas }}"
+  replicas: {{ .Values.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
