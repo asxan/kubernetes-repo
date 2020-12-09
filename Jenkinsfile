@@ -123,22 +123,20 @@ pipeline
         }
         stage('Deploy to cluster')
         {
+
             steps
             {
-                script
-                {
-                    echo "---------------Deploy------------------"
-                    //kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
+                
+                echo "---------------Deploy------------------"
+                //kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
                
-                    if (params.ENVIRONMENT == 'dev')
-                    {
-                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}'
-                    }
-                    else if (params.ENVIRONMENT == 'prod')
-                    {
-                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}'
-                    
-                    }
+                if (params.ENVIRONMENT == 'dev')
+                {
+                    sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}'
+                }
+                else if (params.ENVIRONMENT == 'prod')
+                {
+                    sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}'
                 }
             }
         }
