@@ -4,7 +4,7 @@ pipeline
     {
         choice(
             name: 'ENVIRONMENT',
-            choices: ['dev', 'prod'],
+            choices: ['dev-ns', 'prod-ns'],
             description: 'Choice environment variable ENV'
         )
     }
@@ -34,7 +34,7 @@ pipeline
                 echo "------------------------Clone master--------------------------"
                 git credentialsId: 'github-jenkinskey', branch:'master', url:'git@github.com:asxan/kubernetes-repo.git'
                 sh(script: ''' ls -la
-                rm -rf pythonapp
+                rm -rf pythonapp 
                 mkdir pythonapp 
                 mv BoozeShop pythonapp/ 
                 ''')
@@ -132,11 +132,11 @@ pipeline
                
                     if (params.ENVIRONMENT == 'dev')
                     {
-                        echo "Dev env"
+                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}'
                     }
                     else if (params.ENVIRONMENT == 'prod')
                     {
-                        echo "Prod env"
+                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}'
                     
                     }
                 }
