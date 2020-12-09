@@ -143,6 +143,10 @@ spec:
             {
                 container('helm')
                 {
+                    sh '''
+                    ls -la
+                    '''
+
                     script
                     {
                         echo "---------------Deploy------------------"
