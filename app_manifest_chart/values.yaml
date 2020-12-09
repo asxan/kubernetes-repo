@@ -1,5 +1,6 @@
 deployment:
   image:  "asxan/boozeshop"
-  tag: "latest"
+  tag:
 name: myweb-boozeshop
-replicas: 1
+replicas:
+namespace:
