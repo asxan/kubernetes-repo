@@ -133,11 +133,11 @@ pipeline
                
                     if (params.ENVIRONMENT == 'dev-ns')
                     {
-                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}'
+                        sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}"
                     }
                     else if (params.ENVIRONMENT == 'prod-ns')
                     {
-                        sh 'helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}'
+                        sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}"
                     }
                 }
             }
