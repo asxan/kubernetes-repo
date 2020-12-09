@@ -22,7 +22,22 @@ pipeline
 
     agent 
     {
-        label '!master'
+        kubernetes {
+            label 'kubernetes'
+            defaultContainer 'jenkins-slave'
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: helm
+    image: o1egr/helm
+    imagePullPolicy: Always
+    command:
+        - cat
+    tty: true
+'''
+        }
     }
 
     stages 
@@ -122,22 +137,25 @@ pipeline
             }
         }
         stage('Deploy to cluster')
-        {
-            
+        {  
+
             steps
             {
-                script
+                container('helm')
                 {
-                    echo "---------------Deploy------------------"
-                    //kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
-               
-                    if (params.ENVIRONMENT == 'dev-ns')
+                    script
                     {
-                        sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}"
-                    }
-                    else if (params.ENVIRONMENT == 'prod-ns')
-                    {
-                        sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}"
+                        echo "---------------Deploy------------------"
+                        //kubernetesDeploy(configs: "myweb.yaml",  kubeconfigId: "Newcubernetesconfig")
+                
+                        if (params.ENVIRONMENT == 'dev-ns')
+                        {
+                            sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=1,deployment.tag=${env.BUILD_ID}"
+                        }
+                        else if (params.ENVIRONMENT == 'prod-ns')
+                        {
+                            sh "helm upgrade --install --namespace ${ENVIRONMENT} ${ENVIRONMENT}-boozeshop app_manifest_chart/ --set namespace=${ENVIRONMENT},replicas=3,deployment.tag=${env.BUILD_ID}"
+                        }
                     }
                 }
             }
