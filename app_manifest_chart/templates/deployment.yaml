@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: "{{ .Values.name }}"
-  replicas: "{{ .Values.replicas }}"
+  replicas: {{ .Values.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,6 +16,8 @@ spec:
       maxUnavailable: 1
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         app: "{{ .Values.name }}"
     spec:
