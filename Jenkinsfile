@@ -1,3 +1,16 @@
+/*
+    This is jenkins pipeline for build image, push it to DockerHub 
+    and deploy to kubernetes cluster from simple python application
+
+    The pipeline is made up of 6 main steps
+    1. Git clone and setup
+    2. Copy project to need directory
+    3. Build image from python application
+    4. Publish image to DockerHub
+    5. Delete unneeded image
+    6. Deploy application to kubernetes cluster using helm chart
+ */
+
 pipeline 
 {  
     parameters 
@@ -22,22 +35,7 @@ pipeline
 
     agent 
     {
-        kubernetes {
-            label 'kubernetes'
-            defaultContainer 'jenkins-slave'
-            yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: helm
-    image: o1egr/helm
-    imagePullPolicy: Always
-    command:
-        - cat
-    tty: true
-'''
-        }
+        label '!master'
     }
 
     stages 
@@ -143,10 +141,6 @@ spec:
             {
                 container('helm')
                 {
-                    sh '''
-                    ls -la
-                    '''
-
                     script
                     {
                         echo "---------------Deploy------------------"
