@@ -139,6 +139,8 @@ pipeline
 
             steps
             {
+                sh '''helm -h'''
+
                 container('helm')
                 {
                     script
